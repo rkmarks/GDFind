@@ -6,8 +6,11 @@ var apiGeolocationSuccess = function(position) {
 
 	jQuery.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
         latlon+"&key=AIzaSyAk7b9MJIx55VInscuoRW008MhC_XA78wA", function (data) {
+		console.log(data)
 		var address = data.results[0].address_components;
 		var zipcode = address[address.length - 1].long_name;
+		console.log(address)
+		console.log(zipcode)
 		jQuery('[name=zipcode]').val(zipcode);
     });
 };
