@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+{% extends "layout.html" %}
 {% block content %}
-  <h1>Sign In</h1>
+  <h1>GD Find</h1>
   <form action="" method="post" name="login">
       {{ form.hidden_tag() }}
       <p>
@@ -14,15 +14,3 @@
       <p><input type="submit" value="Sign In"></p>
   </form>
 {% endblock %}
-=======
-{% extends "layout.html" %}
-{% from "_formhelpers.html" import render_field %}
-<form method=post action="/search">
-  <dl>
-    {{ render_field(form.keyword) }}
-    {{ render_field(form.zipcode) }}
-    {{ render_field(form.radius) }}
-  </dl>
-  <p><input type=submit value=Search>
-</form>
->>>>>>> dc2ad1e253a26a7dc98ffeebfe48ae6440750539
