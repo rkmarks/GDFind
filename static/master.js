@@ -1,4 +1,6 @@
 var apiGeolocationSuccess = function(position) {
+    jQuery('[name=lat]').val(latitude);
+    jQuery('[name=lon]').val(longitude);
 	alert("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
 };
 
@@ -12,6 +14,8 @@ var tryAPIGeolocation = function() {
 };
 
 var browserGeolocationSuccess = function(position) {
+    jQuery('[name=lat]').val(latitude);
+    jQuery('[name=lon]').val(longitude);
 	alert("Browser geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
 };
 
@@ -32,11 +36,15 @@ var browserGeolocationFail = function(error) {
 };
 
 var tryGeolocation = function() {
+  var output = document.getElementById("out");
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
     	browserGeolocationSuccess,
       browserGeolocationFail,
       {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
+  }else{
+    output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
   }
 };
 
