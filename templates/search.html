@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 {% block content %}
   <h1>Sign In</h1>
   <form action="{{url_for('route_results')}}" method="post" name="login">
+=======
+{% extends "layout.html" %}
+{% block content %}
+  <h1>GD Find</h1>
+  <form action="" method="post" name="login">
+>>>>>>> 259bbf59ecf2383e1b920251db8f14308176f5d6
       {{ form.hidden_tag() }}
       <p>
           Please enter your Keyword:<br>
