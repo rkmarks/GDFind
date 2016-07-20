@@ -1,10 +1,12 @@
-from wtforms import Form, SelectField, StringField, validators
+from flask_wtf import Form
+from wtforms import SelectField, StringField
+from wtforms.validators import DataRequired
 
 
 class SearchForm(Form):
-    keyword = StringField('Keyword Search', [validators.required()])
-    zipcode = StringField('Zip Code')
-    radius = SelectField('Miles Within',
+    keyword = StringField('keyword',  validators=[DataRequired()])
+    zipcode = StringField('zipcode')
+    radius = SelectField('radius',
                          choices=[
                                     ('Five', '5'),
                                     ('Ten', '10'),
