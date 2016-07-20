@@ -1,11 +1,9 @@
 var apiGeolocationSuccess = function(position) {
-    jQuery('[name=lat]').val(latitude);
-    jQuery('[name=lon]').val(longitude);
 	alert("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
 };
 
 var tryAPIGeolocation = function() {
-	jQuery.post( "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDCa1LUe1vOczX1hO_iGYgyo8p_jYuGOPU", function(success) {
+	jQuery.post( "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAk7b9MJIx55VInscuoRW008MhC_XA78wA", function(success) {
 		apiGeolocationSuccess({coords: {latitude: success.location.lat, longitude: success.location.lng}});
   })
   .fail(function(err) {
@@ -14,9 +12,16 @@ var tryAPIGeolocation = function() {
 };
 
 var browserGeolocationSuccess = function(position) {
-    jQuery('[name=lat]').val(latitude);
-    jQuery('[name=lon]').val(longitude);
-	alert("Browser geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+    var latitude  = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    var latlon = latitude+','+longitude;
+
+    jQuery.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+        latlon+"&key=AIzaSyAk7b9MJIx55VInscuoRW008MhC_XA78wA", function (data) {
+		var address = data.results[0].address_components;
+		var zipcode = address[address.length - 1].long_name;
+		jQuery('[name=zipcode]').val(zipcode);
+    });
 };
 
 var browserGeolocationFail = function(error) {
@@ -36,15 +41,11 @@ var browserGeolocationFail = function(error) {
 };
 
 var tryGeolocation = function() {
-  var output = document.getElementById("out");
-
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
     	browserGeolocationSuccess,
       browserGeolocationFail,
       {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
-  }else{
-    output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
   }
 };
 
