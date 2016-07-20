@@ -45,6 +45,7 @@ def route_results():
     return render_template('results.html', data=data, json=json, lat=lat, lon=lon)
 
 
+
 @app.route('/profile', methods=['GET'])
 def route_profile():
     return
