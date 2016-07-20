@@ -1,21 +1,5 @@
 {% extends "layout.html" %}
 {% block content %}
-<<<<<<< HEAD
-  <h1>GD Find</h1>
-  <form action="" method="post" name="login">
-      {{ form.hidden_tag() }}
-      <p>
-          Please enter your Keyword:<br>
-          {{ form.keyword }}<br>
-          {% for error in form.keyword.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-          {% endfor %}<br>
-      </p>
-      <p>{{ form.zipcode }}</p>
-      <p>{{ form.radius }}
-      <p><input type="submit" value="Sign In"></p>
-  </form>
-=======
   <div id='search'>
     <h1>GD Find</h1>
     <form action="{{url_for('route_results')}}" method="post" name="login">
@@ -32,5 +16,4 @@
         </div>
     </form>
   </div>
->>>>>>> df62d88bd8defdbd864ae0021d8efd621ca77212
 {% endblock %}
