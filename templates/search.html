@@ -1,4 +1,3 @@
-
 {% extends "layout.html" %}
 {% block content %}
   <div id='search'>
@@ -6,15 +5,15 @@
     <form action="{{url_for('route_results')}}" method="post" name="login">
         {{ form.hidden_tag() }}
         <p>
-            Please enter your Keyword:<br>
             {{ form.keyword }}<br>
             {% for error in form.keyword.errors %}
               <span style="color: red;">[{{ error }}]</span>
             {% endfor %}<br>
         </p>
-        <p>{{ form.zipcode }}</p>
-        <p>{{ form.radius }}
-        <p><input id="searchBtn" type="submit" value="Search"></p>
+        <div>
+          <p id="radSearch">Currently searching within:&nbsp;{{ form.radius }} miles of {{ form.zipcode }}</p>
+          <p><input id="searchBtn" type="submit" value="Search"></p>
+        </div>
     </form>
   </div>
 {% endblock %}

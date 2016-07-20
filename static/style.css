@@ -46,17 +46,28 @@ body {
 #zipSearch {
     position: absolute;
     top: 85%;
-    width: 100%;
     color: #FFFFFF;
     background: rgba(0, 0, 0, 0);
-    font-size: 60px;
-    font-weight: 300;
-    text-align: center;
+    font-size: 40px;
+    font-weight: 200;
     border: 0px;
     margin: 0px auto;
     margin-top: -51px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 15px;
+    outline: none;
+}
+#radSearch {
+    position: absolute;
+    float: left;
+    top: 85%;
+    width: 100%;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 200;
+    border: 0px;
+    margin: 0px auto;
+    margin-top: -51px;
+    padding-right: 10px;
     outline: none;
 }
 #searchBtn {
