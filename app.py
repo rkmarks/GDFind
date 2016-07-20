@@ -11,6 +11,10 @@ app.config['SECRET_KEY'] = os.urandom(24)
 
 geolocator = Nominatim()
 
+def convert_miles_to_meters(miles):
+    conversion = int(miles)
+    conversion = conversion * 1609.33999997549
+    return conversion
 
 @app.route('/', methods=['GET','POST'])
 def route_home():
@@ -23,21 +27,22 @@ def route_home():
 @app.route('/results', methods=['GET', 'POST'])
 def route_results():
     keyword = request.form['keyword']
-    zipcode = request.form['zipcode']
+    zipcode = str(request.form['zipcode'])
     radius = request.form['radius']
-    location = geolocator.geocode("85254")
+    location = geolocator.geocode(zipcode)
+    lat = str(location.latitude)
+    lon = str(location.longitude)
     # Find lat / long
-    data = '{"api_key" : "c9caffc16e51883cfec43b1febf65cb898926037", "fields" : [ "name", "description", "website_url", "open_hours", "categories", "locu_id", "location", "contact" ], "venue_queries" : [ { "categories" : "' + keyword + '", "locu": { "is_publishable": true }, "location" : { "geo" : { "$in_lat_lng_radius" : [' + location.latitude + ', ' + location.longitude +', ' + radius + '] } } } ] }'
+    data = '{"api_key" : "c9caffc16e51883cfec43b1febf65cb898926037", "fields" : [ "name", "description", "website_url", "open_hours", "categories", "locu_id", "location", "contact" ], "venue_queries" : [ { "categories" : "' + keyword + '", "locu": { "is_publishable": true }, "location" : { "geo" : { "$in_lat_lng_radius" : [' + str(location.latitude) + ', ' + str(location.longitude) +', ' + str(convert_miles_to_meters(radius)) + '] } } } ] }'
     url = 'https://api.locu.com/v2/venue/search'
 
     req = urllib2.Request(url, data, {'Content-Type': 'application/json'})
     f = urllib2.urlopen(req)
-    req = urllib.request.Request(url, data, headers)
     for x in f:
         json = x
     f.close()
 
-    return render_template('results.html', json=json)
+    return render_template('results.html', data=data, json=json, lat=lat, lon=lon)
 
 
 @app.route('/profile', methods=['GET'])
