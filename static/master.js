@@ -11,12 +11,6 @@ var apiGeolocationSuccess = function(position) {
 					jQuery('[name=zipcode]').val(item.long_name);
 				}
 			});
-		/*console.log(data)
-		var address = data.results[0].address_components;
-		var zipcode = address[address.length - 1].long_name;
-		console.log(address)
-		console.log(zipcode)
-		jQuery('[name=zipcode]').val(zipcode);*/
     });
 };
 
@@ -33,13 +27,14 @@ var browserGeolocationSuccess = function(position) {
     var latitude  = position.coords.latitude;
     var longitude = position.coords.longitude;
     var latlon = latitude+','+longitude;
-	console.log(latlon);
 
     jQuery.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
         latlon+"&key=AIzaSyAk7b9MJIx55VInscuoRW008MhC_XA78wA", function (data) {
-		var address = data.results[0].address_components;
-		var zipcode = address[address.length - 1].long_name;
-		jQuery('[name=zipcode]').val(zipcode);
+			$.each(data.results[0].address_components, function (i, item) {
+				if(item.types[0] == 'postal_code') {
+					jQuery('[name=zipcode]').val(item.long_name);
+				}
+			});
     });
 };
 
