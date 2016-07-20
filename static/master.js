@@ -1,48 +1,43 @@
-function geoFindMe() {
-  var output = document.getElementById("out");
+var apiGeolocationSuccess = function(position) {
+	alert("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+};
 
-  if (!navigator.geolocation){
-    output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-    return;
+var tryAPIGeolocation = function() {
+	jQuery.post( "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDCa1LUe1vOczX1hO_iGYgyo8p_jYuGOPU", function(success) {
+		apiGeolocationSuccess({coords: {latitude: success.location.lat, longitude: success.location.lng}});
+  })
+  .fail(function(err) {
+    alert("API Geolocation error! \n\n"+err);
+  });
+};
+
+var browserGeolocationSuccess = function(position) {
+	alert("Browser geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+};
+
+var browserGeolocationFail = function(error) {
+  switch (error.code) {
+    case error.TIMEOUT:
+      alert("Browser geolocation error !\n\nTimeout.");
+      break;
+    case error.PERMISSION_DENIED:
+      if(error.message.indexOf("Only secure origins are allowed") == 0) {
+        tryAPIGeolocation();
+      }
+      break;
+    case error.POSITION_UNAVAILABLE:
+      alert("Browser geolocation error !\n\nPosition unavailable.");
+      break;
   }
+};
 
-  function success(position) {
-
-    var latitude  = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    jQuery('[name=lat]').val(latitude);
-    jQuery('[name=lon]').val(longitude);
-
-    var latlon = latitude+','+longitude;
-
-    //output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-
-    jQuery.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
-        latlon+"&key=AIzaSyAfpUjvQXuQFyHvdClznSTXw5oORrB_Vqs", function (data) {
-        $.each(data.results[0].address_components, function (i, item) {
-            if(item.types[0] == 'postal_code') {
-                jQuery('[name=zipcode]').val(item.long_name);
-            }
-        });
-     });
-/*
-    var img = new Image();
-    img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude +
-        "&zoom=13&size=300x300&sensor=false&key=AIzaSyDGqXHYlUaKyesmlbCN0mF-Rf9pZaV6vLM";
-
-    output.appendChild(img);
-*/
-    output.innerHTML = "";
+var tryGeolocation = function() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+    	browserGeolocationSuccess,
+      browserGeolocationFail,
+      {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
   }
+};
 
-  function error() {
-    output.innerHTML = "Unable to retrieve your location";
-  }
-
-
-    if ("" === jQuery('[name=zipcode]').val()) {
-        output.innerHTML = "<p>Locating…</p>";
-        navigator.geolocation.getCurrentPosition(success, error);
-    }
-
-}
+tryGeolocation();
