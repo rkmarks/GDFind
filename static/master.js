@@ -21,7 +21,7 @@ function geoFindMe() {
         latlon+"&key=AIzaSyAfpUjvQXuQFyHvdClznSTXw5oORrB_Vqs", function (data) {
         $.each(data.results[0].address_components, function (i, item) {
             if(item.types[0] == 'postal_code') {
-                jQuery('[name=zip]').val(item.long_name);
+                jQuery('[name=zipcode]').val(item.long_name);
             }
         });
      });
@@ -40,7 +40,7 @@ function geoFindMe() {
   }
 
 
-    if ("" === jQuery('[name=zip]').val()) {
+    if ("" === jQuery('[name=zipcode]').val()) {
         output.innerHTML = "<p>Locating…</p>";
         navigator.geolocation.getCurrentPosition(success, error);
     }

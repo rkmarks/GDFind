@@ -12,7 +12,12 @@
         </p>
         <div>
           <p id="radSearch">Currently searching within:&nbsp;{{ form.radius }} miles of {{ form.zipcode }}</p>
+          <input name="lat" type="hidden">
+           <input name="lon" type="hidden">
           <p><input id="searchBtn" type="submit" value="Search"></p>
+          <div id="out">
+          </div>
+          <script>geoFindMe();</script>
         </div>
     </form>
   </div>
