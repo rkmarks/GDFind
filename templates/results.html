@@ -1,2 +1,11 @@
-{{ json }}
+{% for item in json['venues'] %}
+    {{ item.name }}
+{% endfor %}
+
+
+
+
+
+
+
 {% extends "layout.html" %}

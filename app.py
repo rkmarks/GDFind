@@ -1,6 +1,7 @@
 import os
 import sys
 import urllib2
+import json
 from flask import Flask, render_template, redirect, url_for, request, flash
 from shared.forms import SearchForm
 from geopy.geocoders import Nominatim
@@ -39,10 +40,12 @@ def route_results():
     req = urllib2.Request(url, data, {'Content-Type': 'application/json'})
     f = urllib2.urlopen(req)
     for x in f:
-        json = x
+        data = x
     f.close()
 
-    return render_template('results.html', data=data, json=json, lat=lat, lon=lon)
+    parsed_json = json.loads(data)
+
+    return render_template('results.html', json=parsed_json)
 
 
 
