@@ -4,13 +4,13 @@ from wtforms.validators import DataRequired
 
 
 class SearchForm(Form):
-    keyword = StringField('keyword',  validators=[DataRequired()])
+    keyword = StringField('keyword', id='', validators=[DataRequired()])
     zipcode = StringField('zipcode')
     radius = SelectField('radius',
                          choices=[
-                                    ('Five', '5'),
-                                    ('Ten', '10'),
-                                    ('TwentyFive', '25'),
-                                    ('Fifty', '50'),
-                                    ('Hunid', '100')
+                                    ('5', '5'),
+                                    ('10', '10'),
+                                    ('25', '25'),
+                                    ('50', '50'),
+                                    ('100', '100')
                                  ])
