@@ -1,11 +1,4 @@
-{% for item in json['venues'] %}
-    {{ item.name }}
-{% endfor %}
-
-
-
 {% extends "layout.html" %}
-
 {% block content %}
 <div class="container">
     <div class="row">
@@ -27,44 +20,20 @@
                 </div>
 
                 <ul class="list-group" id="contact-list">
+                    {% for item in json['venues'] %}
                     <li class="list-group-item">
                         <div class="col-xs-12 col-sm-9">
-                            <span class="name"><a href="profile.html">Good Food Commpany</a></span><br/>
-                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="5842 Hillcrest Rd"></span>
-                            <span class="visible-xs"> <span class="text-muted">5842 Hillcrest Rd, Scottsdale AZ</span><br/></span>
-                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(870) 288-4149"></span>
-                            <span class="visible-xs"> <span class="text-muted">(870) 288-4149</span><br/></span>
-                            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="reservations@goodfoodco.com"></span>
-                            <span class="visible-xs"> <span class="text-muted">reservations@goodfoodco.com</span><br/></span>
+                            <span class="name"><a href="{{ url_for('route_profile', id=item.locu_id) }}">{{ item.name }}</a></span><br/>
+                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="{{ item.location.address1 }}"></span>
+                            <span class="visible-xs"> <span class="text-muted">{{ item.location }}</span><br/></span>
+                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="{{ item.contact.phone }}"></span>
+                            <span class="visible-xs"> <span class="text-muted">{{ item.contact }}</span><br/></span>
                         </div>
                         <div class="clearfix"></div>
                     </li>
-                    <li class="list-group-item">
-                        <div class="col-xs-12 col-sm-9">
-                            <span class="name"><a href="profile.html">Hamburgers R Us</a></span><br/>
-                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="16635 59th st, Scottsdale AZ"></span>
-                            <span class="visible-xs"> <span class="text-muted">16635 59th st, Scottsdale AZ</span><br/></span>
-                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(874) 214-9987"></span>
-                            <span class="visible-xs"> <span class="text-muted">(874) 214-9987</span><br/></span>
-                            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="reservations@hamburgersrus.com"></span>
-                            <span class="visible-xs"> <span class="text-muted">reservations@hamburgersrus.com</span><br/></span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="col-xs-12 col-sm-9">
-                            <span class="name"><a href="profile.html">Hotdog Joes</a></span><br/>
-                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="9873 williams st., Scottsdale AZ"></span>
-                            <span class="visible-xs"> <span class="text-muted">9873 williams st., Scottsdale AZ</span><br/></span>
-                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(362) 235-4149"></span>
-                            <span class="visible-xs"> <span class="text-muted">(362) 235-4149</span><br/></span>
-                            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="reservations@hotdogjoes.com"></span>
-                            <span class="visible-xs"> <span class="text-muted">reservations@hotdogjoes.com</span><br/></span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </li>
+                    {% endfor %}
                 </ul>
-		<a class="pull-right" style="color:white;"  href="index.php"><--- Back To Search</a>
+		<a class="pull-right" style="color:white;"  href="{{ url_for('route_home') }}"><--- Back To Search</a>
             </div>
         </div>
   </div>

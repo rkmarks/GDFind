@@ -49,9 +49,23 @@ def route_results():
 
 
 
-@app.route('/profile', methods=['GET'])
+@app.route('/profile', methods=['GET', 'POST'])
 def route_profile():
-    return
+    data = '{"api_key": "c9caffc16e51883cfec43b1febf65cb898926037", "fields" : [ "name", "description", "website_url", "open_hours", "categories", "locu_id", "location", "contact" ], "venue_queries": [{"locu_id": "' + request.args.get('id') + '","locu": {"is_publishable": true}}]}'
+    url = 'https://api.locu.com/v2/venue/search'
+
+    req = urllib2.Request(url, data, {'Content-Type': 'application/json'})
+    f = urllib2.urlopen(req)
+    for x in f:
+        data = x
+    f.close()
+
+    parsed_json = json.loads(data)
+    slim_json = parsed_json['venues'][0]
+
+    address = slim_json["location"]["address1"]
+
+    return render_template('profile.html', json=slim_json)
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
