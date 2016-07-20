@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+<div class="col-xs-12 col-sm-offset-3 col-sm-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading c-list">
+            <span class="title">SHOW BUSINESS NAME HERE:</span>
+        </div>
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script>
+  function initialize() {
+        var mapProp = {
+  center:new google.maps.LatLng(33.6072,-111.9403),
+  zoom:5,
+  mapTypeId:google.maps.MapTypeId.ROADMAP
+};
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<div id="googleMap" style="width:200px; height:250px;"></div>
+<p><h3 style="margin-top:5px;">Hours:</h3> <b>Monday</b>  7AM-8PM<br /><b>Tuesday</b>  6AM-4PM<br /><b>Wednesday</b>  7AM-8PM<br/><b>Thursday</b>  8AM-9PM<br /><b>Friday</b>  9AM-10PM<br /><b>Saturday</b>  9AM-12AM<br/><b>Sunday</b> Closed
+            </div>
+            <div class="col-sm-6 col-md-8">
+<h3 style="margin-top:5px;">Company Details:</h3>
+                <small><cite title="Scottsdale Arizona, USA">Scottsdale Arizona, USA <i class="glyphicon glyphicon-map-marker">
+                </i></cite></small>
+<br />
+                <p>
+                    <i class="glyphicon glyphicon-envelope"></i> reservations@goodhamburgercompany.com
+                    <br />
+                    <i class="glyphicon glyphicon-globe"></i> 2505 williams st, Scottsdale, AZ 85295
+                    <br />
+  <i class="glyphicon glyphicon-phone"></i> (319)504-3834
+  <br />
+  <i class="glyphicon glyphicon-list-alt"></i> www.websitecompany.com
+  <hr />
+  <h3 style="margin-top:5px;">Business Bio:</h3>
+  <p> Lorem ipsum dolor sit amet, non parturient vestibulum metus dolor quam, magna fermentum, quam iaculis dolor auctor in, pede massa massa mollis wisi. Metus pellentesque at fermentum, lacinia facilisi vestibulum ac orci non, neque luctus vestibulum totam sit sed, cursus feugiat elit, neque lobortis nibh aptent feugiat ultricies nec. Ante risus magna magnis, ligula sit, ipsum dolor sed quis ante et, pede ante dui ridiculus eu justo ipsum. Luctus erat erat congue convallis ultricies metus, nibh a cum adipiscing. Integer morbi phasellus.</p>
+            </div>
+</div>
+    </div>
+<a class="pull-right" style="color:white;"  href="test.html"><--- Back To Results</a>
+</div>
+    </div>
+</div>
+</div>
+{% endblock %}
