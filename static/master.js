@@ -1,5 +1,15 @@
 var apiGeolocationSuccess = function(position) {
-	alert("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+	var latitude  = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    var latlon = latitude+','+longitude;
+	console.log(latlon);
+
+	jQuery.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+        latlon+"&key=AIzaSyAk7b9MJIx55VInscuoRW008MhC_XA78wA", function (data) {
+		var address = data.results[0].address_components;
+		var zipcode = address[address.length - 1].long_name;
+		jQuery('[name=zipcode]').val(zipcode);
+    });
 };
 
 var tryAPIGeolocation = function() {
@@ -15,6 +25,7 @@ var browserGeolocationSuccess = function(position) {
     var latitude  = position.coords.latitude;
     var longitude = position.coords.longitude;
     var latlon = latitude+','+longitude;
+	console.log(latlon);
 
     jQuery.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
         latlon+"&key=AIzaSyAk7b9MJIx55VInscuoRW008MhC_XA78wA", function (data) {
