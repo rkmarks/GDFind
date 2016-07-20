@@ -3,11 +3,12 @@ from wtforms import Form, SelectField, StringField, validators
 
 class SearchForm(Form):
     keyword = StringField('Keyword Search', [validators.required()])
+    zipcode = StringField('Zip Code')
     radius = SelectField('Miles Within',
                          choices=[
-                                    ('5', 'Five'),
-                                    ('10', 'Ten'),
-                                    ('25', 'TwentyFive'),
-                                    ('50', 'Fifty'),
-                                    ('100', 'OneHunid')
+                                    ('Five', '5'),
+                                    ('Ten', '10'),
+                                    ('TwentyFive', '25'),
+                                    ('Fifty', '50'),
+                                    ('Hunid', '100')
                                  ])

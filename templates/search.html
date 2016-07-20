@@ -1,0 +1,9 @@
+{% from "_formhelpers.html" import render_field %}
+<form method=post action="/search">
+  <dl>
+    {{ render_field(form.keyword) }}
+    {{ render_field(form.zipcode) }}
+    {{ render_field(form.radius) }}
+  </dl>
+  <p><input type=submit value=Search>
+</form>
