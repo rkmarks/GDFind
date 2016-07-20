@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired
 
 
 class SearchForm(Form):
-    keyword = StringField('keyword', id='', validators=[DataRequired()])
+    keyword = StringField('keyword', validators=[DataRequired()])
     zipcode = StringField('zipcode')
     radius = SelectField('radius',
                          choices=[
