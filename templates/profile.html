@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+<div class="col-xs-12 col-sm-offset-3 col-sm-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading c-list">
+            <span class="title">{{ json.name }}:</span>
+        </div>
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAk7b9MJIx55VInscuoRW008MhC_XA78wA"></script>
+<script>
+  function initialize() {
+        var mapProp = {
+  center:new google.maps.LatLng(33.6072,-111.9403),
+  zoom:5,
+  mapTypeId:google.maps.MapTypeId.ROADMAP
+};
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<div id="googleMap" style="width:200px; height:250px;"></div>
+<p>
+    <h3 style="margin-top:5px;">Hours:</h3>
+        {% if json.open_hours %}
+        <b>Monday</b>  {% if json.open_hours.monday %}{{ json.open_hours.monday[0][0] }} - {{ json.open_hours.monday[0][1] }}{% else %}Closed{% endif %} <br />
+        <b>Tuesday</b>  {% if json.open_hours.tuesday %}{{ json.open_hours.tuesday[0][0] }} - {{ json.open_hours.tuesday[0][1] }}{% else %}Closed{% endif %} <br />
+        <b>Wednesday</b>  {% if json.open_hours.wednesday %}{{ json.open_hours.wednesday[0][0] }} - {{ json.open_hours.wednesday[0][1] }}{% else %}Closed{% endif %} <br/>
+        <b>Thursday</b>  {% if json.open_hours.thursday %}{{ json.open_hours.thursday[0][0] }} - {{ json.open_hours.thursday[0][1] }}{% else %}Closed{% endif %} <br />
+        <b>Friday</b>  {% if json.open_hours.friday %}{{ json.open_hours.friday[0][0] }} - {{ json.open_hours.friday[0][1] }}{% else %}Closed{% endif %} <br />
+        <b>Saturday</b>  {% if json.open_hours.saturday %}{{ json.open_hours.saturday[0][0] }} - {{ json.open_hours.saturday[0][1] }}{% else %}Closed{% endif %} <br/>
+        <b>Sunday</b> {% if json.open_hours.sunday %}{{ json.open_hours.sunday[0][0] }} - {{ json.open_hours.sunday[0][1] }}{% else %}Closed{% endif %}
+        {% else %}
+        No Hours To Display
+        {% endif %}
+</div>
+            <div class="col-sm-6 col-md-8">
+<h3 style="margin-top:5px;">Company Details:</h3>
+                <small><cite title="{{ json.location.locality}} {{ json.location.region }}, {{ json.location.country }}">{{ json.location.locality }} {{ json.location.region }}, {{ json.location.country }} <i class="glyphicon glyphicon-map-marker">
+                </i></cite></small>
+<br />
+                <p>
+                    <i class="glyphicon glyphicon-globe"></i> {{ json.location.address1 }} {{ json.location.address2 }}, {{ json.location.locality }}, {{ json.location.region }} {{ json.location.postal_code }}
+                    <br />
+  <i class="glyphicon glyphicon-phone"></i> {{ json.contact.phone }}
+  <br />
+  <i class="glyphicon glyphicon-list-alt"></i> <a href="{{ json.website_url}}" target="_blank">{{ json.website_url}}</a>
+  <hr />
+  <h3 style="margin-top:5px;">Business Bio:</h3>
+  <p>{{ json.description}}</p>
+            </div>
+</div>
+    </div>
+<a class="pull-right" style="color:white;"  href="{{ url_for('route_home')}}"><--- Back To Search</a>
+</div>
+    </div>
+</div>
+</div>
+{% endblock %}

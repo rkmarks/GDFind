@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div id='search'>
+    <h1>GD Find</h1>
+    <form action="{{url_for('route_results')}}" method="post" name="login">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.keyword }}<br>
+            {% for error in form.keyword.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}<br>
+        </p>
+        <div>
+          <p id="radSearch">Currently searching within:&nbsp;{{ form.radius }} miles of {{ form.zipcode }}</p>
+          <p><input class="btn btn-primary" id="searchBtn" type="submit" value="Search"></p>
+        </div>
+    </form>
+  </div>
+{% endblock %}
