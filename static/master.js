@@ -14,14 +14,14 @@ var apiGeolocationSuccess = function(position) {
     });
 };
 
-var tryAPIGeolocation = function() {
-	jQuery.post( "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAk7b9MJIx55VInscuoRW008MhC_XA78wA", function(success) {
-		apiGeolocationSuccess({coords: {latitude: success.location.lat, longitude: success.location.lng}});
-  })
-  .fail(function(err) {
-    alert("API Geolocation error! \n\n"+err);
-  });
-};
+// var tryAPIGeolocation = function() {
+// 	jQuery.post( "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAk7b9MJIx55VInscuoRW008MhC_XA78wA", function(success) {
+// 		apiGeolocationSuccess({coords: {latitude: success.location.lat, longitude: success.location.lng}});
+//   })
+//   .fail(function(err) {
+//     alert("API Geolocation error! \n\n"+err);
+//   });
+// };
 
 var browserGeolocationSuccess = function(position) {
     var latitude  = position.coords.latitude;
@@ -44,7 +44,7 @@ var browserGeolocationFail = function(error) {
       alert("Browser geolocation error !\n\nTimeout.");
       break;
     case error.PERMISSION_DENIED:
-      if(error.message.indexOf("Only secure origins are allowed") == 0) {
+      if(error.message.indexOf("Only secure origins are allowed") === 0) {
         tryAPIGeolocation();
       }
       break;
